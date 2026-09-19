@@ -1,7 +1,36 @@
 # Yury AI Gateway
 
-A private, read-only MCP gateway that lets ChatGPT selectively call Claude,
-Perplexity, and Grok as specialist external models.
+A private, read-only way for ChatGPT to call Claude, Perplexity, and Grok as
+specialist external models.
+
+## Recommended: no-hosting ChatGPT Action
+
+[**Open the setup page**](https://yurydyachenko.github.io/yury-ai-gateway/)
+
+The `gpt-action` package replaces Render. ChatGPT calls the Perplexity Agent API
+directly, so there is no gateway server, hosting account, or deployment card.
+GitHub hosts only the public OpenAPI schema, instructions, and setup page; it
+never receives the API key.
+
+The one unavoidable private step is entering the Perplexity key in the GPT
+editor under **Actions → Authentication → API Key → Bearer**. OpenAI stores an
+encrypted version of action API keys. Never put the key in GitHub or chat.
+
+See [`gpt-action/SETUP.md`](gpt-action/SETUP.md) for the short setup, or import
+the schema directly from:
+
+`https://yurydyachenko.github.io/yury-ai-gateway/openapi.yaml`
+
+This removes hosting charges, not model charges. Perplexity Agent API calls,
+including routed Claude and Grok calls, are usage-metered by Perplexity. A truly
+zero-inference-cost solution would require a local open-source model and would
+not provide the same proprietary models or live Perplexity research.
+
+## Optional: self-hosted MCP gateway
+
+The Node application in this repository remains available if you later need an
+MCP server, direct Anthropic/xAI keys, native X search, or server-side rate
+limits. It can run locally or on infrastructure you already control.
 
 ## What it exposes
 
@@ -13,26 +42,6 @@ Perplexity, and Grok as specialist external models.
 
 The gateway is read-only. It does not persist prompts or outputs. Provider API
 keys stay in hosting secrets and are never returned to ChatGPT.
-
-## Fastest deployment
-
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/yurydyachenko/yury-ai-gateway)
-
-Click the button above for a one-click Render Blueprint deployment. The only
-required secret is `PERPLEXITY_API_KEY`.
-
-A Perplexity key enables Perplexity research and can route Claude and Grok
-reasoning. Add `ANTHROPIC_API_KEY` later for direct Claude calls. Add
-`XAI_API_KEY` for direct Grok calls and native X search.
-
-After deployment, open the service URL. Its setup page derives your private MCP
-connection URL locally in the browser and walks you through adding it to
-ChatGPT.
-
-The Blueprint starts on Render's free plan so deployment does not silently
-create a paid service. Free services sleep after inactivity, so open the service
-URL first to wake it before connecting from ChatGPT. Upgrade the Render instance
-if you want an always-on gateway.
 
 ## Local verification
 
