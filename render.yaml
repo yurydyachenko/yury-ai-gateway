@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: yury-ai-gateway
+    runtime: docker
+    plan: free
+    autoDeployTrigger: commit
+    healthCheckPath: /healthz
+    envVars:
+      - key: PERPLEXITY_API_KEY
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: CLAUDE_MODEL
+        value: claude-opus-5
+      - key: PERPLEXITY_CLAUDE_MODEL
+        value: anthropic/claude-opus-5
+      - key: GROK_MODEL
+        value: grok-4.6
+      - key: PERPLEXITY_GROK_MODEL
+        value: xai/grok-4.6
+      - key: MAX_PROMPT_CHARS
+        value: "120000"
+      - key: MAX_OUTPUT_TOKENS
+        value: "8000"
+      - key: UPSTREAM_TIMEOUT_MS
+        value: "240000"
+      - key: MAX_REQUESTS_PER_MINUTE
+        value: "60"
